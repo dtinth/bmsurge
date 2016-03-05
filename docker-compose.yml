@@ -1,0 +1,27 @@
+nowplaying:
+  restart: always
+  build: nowplaying
+  env_file: .env
+  environment:
+    SERVER_STATUS: |
+      Be-Music Surge is playing in random mode with BMS from
+      <acronym title='BMS Starter Pack 2009'>BMSSP2009</acronym>,
+      <acronym title='THE BMS OF FIGHTERS 2011 - Intersection of conflict -'>BOF2011</acronym>,
+      <acronym title='大血戦 -BOFU2015-'>BOFU2015</acronym>,
+      <acronym title='Be-Music West'>BMWest</acronym>,
+      <acronym title='ジャンル・シャッフル３'>GENRE SHUFFLE 3</acronym>, and
+      <acronym title='PABAT! 2016 seasons'>PABAT2016</acronym>.
+      Songs from
+      <acronym title='konzertsaal - THE BMS OF FIGHTERS 2013 -'>BOF2013</acronym>,
+      <acronym title='G2R2014 "GO BACK 2 YOUR ROOTS"'>G2R2014</acronym>, and
+      <acronym title='PABAT! 2015 seasons'>PABAT2015</acronym>
+      are being converted and added.
+  ports:
+    - 8002:80
+statistics-logger:
+  restart: always
+  build: statistics-logger
+  environment:
+    STAT_LOG_PATH: /var/log/icestats
+  volumes:
+    - /var/log/icestats:/var/log/icestats

@@ -1,0 +1,15 @@
+{
+  "name": "statistics-logger",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thai Pangsakulyanont <org.yi.dttvb@gmail.com> (http://dt.in.th/)",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "request-promise": "^2.0.1"
+  }
+}
