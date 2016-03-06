@@ -4,6 +4,8 @@ nowplaying:
   env_file: .env
   environment:
     SERVER_STATUS: |
+      <strong>Current Programme:</strong> All songs in shuffle mode.
+      <br /><br />
       Be-Music Surge is playing in random mode with BMS from
       <acronym title='BMS Starter Pack 2009'>BMSSP2009</acronym>,
       <acronym title='THE BMS OF FIGHTERS 2011 - Intersection of conflict -'>BOF2011</acronym>,

@@ -110,6 +110,27 @@
       margin: 0 0 0.5em;
       font-size: 12px;
     }
+
+    #play {
+      position: relative;
+    }
+    #play #star {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      cursor: pointer;
+      color: #FFC601;
+    }
+    .unstar {
+      color: #FFC601;
+      cursor: pointer;
+    }
+    #starred {
+      margin-top: 1em;
+    }
+    [hidden] {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -130,10 +151,15 @@
     <div id="now">
       <h2><strong>Now Playing</strong></h2>
       <div id="play">
+        <span id="star" hidden>&#x2606;</span>
         <strong><span id="genre">[GENRE]</span></strong><br />
         <span id="title">[title]</span><br />
         <cite><span id="artist">[artist]</span></cite><br />
         <small id="event">[title]</small>
+      </div>
+      <div id="starred" hidden>
+        <h2>Starred Tracks</h2>
+        <ul id="starredTracks"></ul>
       </div>
     </div>
     <div id="wow">
@@ -158,7 +184,7 @@
           This radio station is hosted by flicknote. You can reach me via <a href="https://twitter.com/bemusegame">Twitter</a>.
         </li>
         <li>
-          You may be interested in joining <a href="https://discord.gg/0lUN07Rj1O5ZPmua">BMS chat on Discord</a>.
+          You may be interested in joining <a href="https://discord.gg/0lUN07Rj1O8zv5Y5">BMS chat on Discord</a>.
         </li>
         <li>
           If you want your song removed from the stream, please contact flicknote☆spacet.me or ping flicknote on Discord.
@@ -235,7 +261,7 @@
               body: data.artist + ' (' + data.set + ')',
               icon: '/icon.png'
             })
-            setTimeout(noti.close.bind(n), 5000)
+            setTimeout(noti.close.bind(noti), 5000)
           }
         }
       })()
@@ -255,12 +281,77 @@
         document.querySelector('#status').innerHTML = data.serverStatus
         if (window._updateTwitter) window._updateTwitter(data)
         if (window._postNotification) window._postNotification(data)
+        window._currentSong = data
         console.log(data)
       }
       xh.send()
     }
     update()
     setInterval(update, 10000)
+  </script>
+
+  <script>
+    // This code is a piece of .... right now
+    void (function () {
+      if (!location.search.match(/beta/)) return
+      document.querySelector('#star').removeAttribute('hidden')
+      var _starred = getStarred()
+      function getStarred () {
+        try {
+          return JSON.parse(localStorage.starredV1)
+        } catch (e) {
+          return [ ]
+        }
+      }
+      function getSongKey (song) {
+        return song.set + ' / ' + song.artist + ' - ' + song.title
+      }
+      document.querySelector('#star').onclick = function () {
+        var song = _currentSong
+        var songKey = getSongKey(song)
+        var alreadyStarred = _starred.some(function (item) {
+          return getSongKey(item) == songKey
+        })
+        if (alreadyStarred) {
+          return
+        }
+        _starred.unshift(song)
+        update()
+        render()
+      }
+      function update () {
+        localStorage.starredV1 = JSON.stringify(_starred)
+      }
+      function render () {
+        if (_starred.length) {
+          document.querySelector('#starred').removeAttribute('hidden')
+        } else {
+          document.querySelector('#starred').setAttribute('hidden', 'hidden')
+        }
+        var tracksEl = document.querySelector('#starredTracks')
+        tracksEl.innerHTML = ''
+        _starred.forEach(function (track) {
+          var li = document.createElement('li')
+          li.appendChild(document.createTextNode(getSongKey(track)))
+          li.appendChild(document.createTextNode(' '))
+          var a = document.createElement('a')
+          a.innerHTML = '×'
+          a.className = 'unstar'
+          a.onclick = function () {
+            if (confirm('Really remove this?')) {
+              _starred = _starred.filter(function (item) {
+                return getSongKey(item) !== getSongKey(track)
+              })
+              update()
+              render()
+            }
+          }
+          li.appendChild(a)
+          tracksEl.appendChild(li)
+        })
+      }
+      render()
+    })()
   </script>
 
   <script>
