@@ -18,4 +18,4 @@ Current services are:
 - `nowplaying` Serves the server status and currently playing music.
 - `programme` Scripts to update radio program.
 - `statistics-logger` Worker that records the server statistics every minute.
-- `website` The web site.
+- `www` The web site built using Webpack and Preact. The result is a 19k HTML file with all CSS and JS inlined.
