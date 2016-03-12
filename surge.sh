@@ -1,2 +1,4 @@
 #!/bin/bash
-surge website/ be-music.surge.sh
+cd www
+npm run build
+surge dist be-music.surge.sh

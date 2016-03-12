@@ -1,4 +1,6 @@
 
+import { createReducer } from 'redux-send'
+
 const songId = ({ title, artist }) => `${artist} - ${title}`
 
 const addHistory = (history, newSong, timestamp) => (
@@ -7,7 +9,7 @@ const addHistory = (history, newSong, timestamp) => (
   : history
 )
 
-const model = {
+const AppModel = {
   getInitialState: () => ({
     nowPlaying: {
       set: '[set]',
@@ -57,10 +59,4 @@ const model = {
   })
 }
 
-export function reducer (state = model.getInitialState(), action) {
-  if (action.type === 'MESSAGE') {
-    return (action.message)(model)(state)
-  } else {
-    return state
-  }
-}
+export const reducer = createReducer(AppModel)
