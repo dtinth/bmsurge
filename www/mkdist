@@ -1,0 +1,12 @@
+#!/bin/bash -e
+
+NODE_ENV=production webpack -p
+webpack --config webpack.prerender.config.js
+node build/serverRender.bundle.js > build/main.html
+mkdir -p dist
+node generateDist.js > dist/index.html
+cp -r static/* dist/
+
+echo
+echo -n 'HTML size (gzipped): '
+cat dist/index.html | gzip | wc -c

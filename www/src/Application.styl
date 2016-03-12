@@ -1,0 +1,37 @@
+
+.root
+  display block
+  width 30em
+  max-width 95vw
+  margin 20vh auto 20vh
+  animation intro 0.5s ease-out
+
+.lightSection
+  color #333
+  background #fff
+  border-left 1px solid #CCC
+  border-top 1px solid #CCC
+  border-bottom 1px solid #333
+  padding 1em
+  text-align left
+  > h2
+    font-size 0.8em
+    margin 0 0 1ex
+    text-align center
+    &:not(:first-child)
+      margin-top 1.5em
+
+.nowPlayingSection
+  composes lightSection
+
+.serverStatusSection
+  composes lightSection
+  background #EEF
+
+@keyframes intro
+  from
+    transform translateY(-2em)
+    opacity 0
+  to
+    transform translateY(0em)
+    opacity 1
