@@ -15,6 +15,7 @@ These microservices interact with `mpd` through the `mpc` command-line applicati
 
 Current services are:
 
+- `dj` Auto DJ: a Ruby microservice that keeps refilling songs into mpd’s song queue.
 - `nowplaying` Serves the server status and currently playing music.
 - `programme` Scripts to update radio program.
 - `statistics-logger` Worker that records the server statistics every minute.
