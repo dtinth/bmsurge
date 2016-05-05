@@ -4,6 +4,16 @@ nowplaying:
   env_file: .env
   ports:
     - 8002:80
+dj:
+  restart: always
+  build: dj
+  env_file: .env
+  environment:
+    QUEUE_FILE: /var/lib/autodj/queue.txt
+  volumes:
+    - /var/lib/autodj:/var/lib/autodj
+  ports:
+    - 127.0.0.1:9292:9292
 statistics-logger:
   restart: always
   build: statistics-logger
@@ -11,3 +21,6 @@ statistics-logger:
     STAT_LOG_PATH: /var/log/icestats
   volumes:
     - /var/log/icestats:/var/log/icestats
+redis:
+  restart: always
+  image: redis
