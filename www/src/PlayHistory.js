@@ -1,7 +1,7 @@
 
 import { h } from 'preact'
 import styles from './PlayHistory.styl'
-import { link } from './BMSLink'
+import { link, searchLink } from './BMSLink'
 
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
@@ -11,7 +11,7 @@ const formatTime = (timestamp) => {
 
 const SongItem = ({ song }) => (
   <li className={styles.song}>
-    <span className={styles.timestamp}>{formatTime(song.timestamp)}</span>{' '}
+    <span className={styles.timestamp}><a href={searchLink(song)} className={styles.timestampLink} target='_blank'>{formatTime(song.timestamp)}</a></span>{' '}
     <span className={styles.genre}>【{song.genre}】</span>
     <cite className={styles.artist}>{song.artist}</cite> — <a href={link(song)} target='_blank' className={styles.title}>{song.title}</a>
   </li>

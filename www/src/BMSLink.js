@@ -2,3 +2,7 @@
 export function link ({ md5 }) {
   return 'http://www.dream-pro.info/~lavalse/LR2IR/search.cgi?mode=ranking&bmsmd5=' + md5
 }
+
+export function searchLink ({ md5 }) {
+  return 'http://bmssearch.net/bms?bmsmd5=' + md5
+}
