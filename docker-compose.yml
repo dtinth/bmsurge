@@ -1,4 +1,4 @@
-nowplaying:
+web:
   restart: always
   build: nowplaying
   env_file: .env
