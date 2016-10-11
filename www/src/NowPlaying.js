@@ -1,8 +1,8 @@
-
 import { h } from 'preact'
+
 import styles from './NowPlaying.styl'
-import { link, searchLink, bmsLink } from './BMSLink'
 import TwitterShareButton from './TwitterShareButton'
+import { link, searchLink, bmsLink, soundcloudLink } from './BMSLink'
 
 function getShareOptions (playing) {
   if (playing.initial) {
@@ -32,6 +32,17 @@ const NowPlaying = ({ nowPlaying, options, store }) => (
           ? (
             <a className={styles.link} target='_blank' href={nowPlaying.link.url}>
               <strong>{nowPlaying.set}</strong> No.{String(nowPlaying.link.regNo)}
+            </a>
+          )
+          : null
+        }
+      </span>
+      <span className={styles.linkItem} key='soundcloud'>
+        {nowPlaying.soundcloud
+          ? (
+            <a className={styles.link} target='_blank' href={soundcloudLink(nowPlaying)}>
+              SoundCloud
+              <span className={styles.bubble}>{nowPlaying.soundcloud}</span>
             </a>
           )
           : null

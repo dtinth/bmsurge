@@ -1,4 +1,3 @@
-
 import { createReducer } from 'redux-send'
 
 const songId = ({ title, artist }) => `${artist} - ${title}`
@@ -29,7 +28,9 @@ const AppModel = {
     }
   }),
   nowPlayingDataReceived: (data, timestamp) => state => {
-    const toSong = ({ set, genre, artist, title, event, md5, link }) => ({ set, genre, artist, title, event, md5, link })
+    const toSong = ({ set, genre, artist, title, event, md5, link, soundcloud }) => ({
+      set, genre, artist, title, event, md5, link, soundcloud
+    })
     const song = toSong(data)
     return {
       ...state,

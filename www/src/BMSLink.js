@@ -14,3 +14,11 @@ export function bmsLink (song) {
     return searchLink(song)
   }
 }
+
+export function soundcloudLink (song) {
+  if (song.soundcloud) {
+    return 'https://soundcloud.com' + song.soundcloud
+  } else {
+    return false
+  }
+}

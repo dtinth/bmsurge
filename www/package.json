@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "bash mkdist",
+    "start": "webpack-dev-server --inline --hot --port=8887",
     "prebuild": "rm -rf dist build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -22,15 +22,28 @@ function getLink (setName, fileName) {
   return null
 }
 
+function getSoundCloud (setName, fileName) {
+  if (setName === 'BOFU2016') {
+    const number = (m => m && +m[1] || 0)(fileName.match(/^(\d+)\./))
+    if (number) {
+      const data = require('./metadata/bofu2016-soundcloud.json')
+      if (data[number]) return data[number]
+    }
+  }
+  return null
+}
+
 const getCurrentSong = throttle(() => {
   return new Promise(function (resolve, reject) {
     exec('./current.sh', function (error, stdout, stderr) {
       if (!error) {
         const data = stdout.toString().split(/\n/)
         const setName = path.basename(path.dirname(data[0]))
+        const fileName = path.basename(data[0])
         resolve({
           set: setName,
-          link: getLink(setName, path.basename(data[0])),
+          link: getLink(setName, fileName),
+          soundcloud: getSoundCloud(setName, fileName),
           genre: data[1],
           artist: data[2],
           title: data[3],

@@ -1,7 +1,7 @@
-
 import { h } from 'preact'
+
 import styles from './PlayHistory.styl'
-import { bmsLink, link, searchLink } from './BMSLink'
+import { bmsLink, link, searchLink, soundcloudLink } from './BMSLink'
 
 const formatTime = (timestamp) => {
   const date = new Date(timestamp)
@@ -9,11 +9,21 @@ const formatTime = (timestamp) => {
   return date.getHours() + ':' + twoDigits(date.getMinutes())
 }
 
+const soundcloudify = (song, content) => {
+  if (song.soundcloud) {
+    return <a className={styles.soundcloudLink} href={soundcloudLink(song)}>{content}</a>
+  } else {
+    return content
+  }
+}
+
 const SongItem = ({ song }) => (
   <li className={styles.song}>
     <span className={styles.timestamp}><a href={link(song)} className={styles.timestampLink} target='_blank'>{formatTime(song.timestamp)}</a></span>{' '}
     <span className={styles.genre}>【{song.genre}】</span>
-    <cite className={styles.artist}>{song.artist}</cite> — <a href={bmsLink(song)} target='_blank' className={styles.title}>{song.title}</a>
+    <cite className={styles.artist}>{soundcloudify(song, song.artist)}</cite>
+    {' — '}
+    <a href={bmsLink(song)} target='_blank' className={styles.title}>{song.title}</a>
     {bmsLink(song) !== searchLink(song)
       ? <span> <a target='_blank' href={searchLink(song)}><img src={require('url!./bmssearch.svg')} width={12} style={{ verticalAlign: 'middle', position: 'relative', top: -1 }} height={12} /></a></span>
       : null
