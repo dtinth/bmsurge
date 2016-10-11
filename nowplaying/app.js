@@ -9,13 +9,28 @@ const throttle = require('lodash').throttle
 const rp = require('request-promise')
 const md = require('markdown-it')({ html: true, typographer: true })
 
+function getLink (setName, fileName) {
+  if (setName === 'BOFU2016') {
+    const number = (m => m && +m[1] || 0)(fileName.match(/^(\d+)\./))
+    if (number) {
+      return {
+        regNo: number,
+        url: 'http://manbow.nothing.sh/event/event.cgi?action=More_def&num=' + number + '&event=110'
+      }
+    }
+  }
+  return null
+}
+
 const getCurrentSong = throttle(() => {
   return new Promise(function (resolve, reject) {
     exec('./current.sh', function (error, stdout, stderr) {
       if (!error) {
         const data = stdout.toString().split(/\n/)
+        const setName = path.basename(path.dirname(data[0]))
         resolve({
-          set: path.basename(path.dirname(data[0])),
+          set: setName,
+          link: getLink(setName, path.basename(data[0])),
           genre: data[1],
           artist: data[2],
           title: data[3],
