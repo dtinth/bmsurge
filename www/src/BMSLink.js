@@ -6,3 +6,11 @@ export function link ({ md5 }) {
 export function searchLink ({ md5 }) {
   return 'http://bmssearch.net/bms?bmsmd5=' + md5
 }
+
+export function bmsLink (song) {
+  if (song.link) {
+    return song.link.url
+  } else {
+    return searchLink(song)
+  }
+}

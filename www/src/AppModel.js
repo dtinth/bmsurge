@@ -17,17 +17,19 @@ const AppModel = {
       artist: '[artist]',
       title: '[TITLE]',
       event: '[event]',
+      link: null,
       initial: true
     },
     serverStatus: '[loading server status]',
     history: [ ],
     options: {
       notifications: false,
-      showHistory: false
+      showHistory: false,
+      'ack.bmssearch': false
     }
   }),
   nowPlayingDataReceived: (data, timestamp) => state => {
-    const toSong = ({ set, genre, artist, title, event, md5 }) => ({ set, genre, artist, title, event, md5 })
+    const toSong = ({ set, genre, artist, title, event, md5, link }) => ({ set, genre, artist, title, event, md5, link })
     const song = toSong(data)
     return {
       ...state,
@@ -48,6 +50,13 @@ const AppModel = {
     options: {
       ...state.options,
       notifications: setting
+    }
+  }),
+  acknowledge: setting => state => ({
+    ...state,
+    options: {
+      ...state.options,
+      ['ack.' + setting]: true
     }
   }),
   setShowHistory: setting => state => ({

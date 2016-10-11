@@ -31,11 +31,44 @@
   border-right-color #aaa
   line-height: 18px
   padding 0 5px 0
+  position relative
   > img
     vertical-align top
     position relative
     margin-right -2px
     top 1px
+
+.bubble
+  position absolute
+  bottom 22px
+  left 50%
+  transform translate(-50%, 0)
+  line-height 15px
+  white-space nowrap
+  background #66649A
+  color #fff
+  z-index 10
+  padding 3px 5px
+  border-radius 3px
+  opacity 1
+  transition 0.4s opacity, 0.4s transform
+  &::before
+    position absolute
+    content ''
+    display block
+    width 0
+    height 0
+    bottom -5px
+    left 50%
+    border 5px solid transparent
+    border-top-color #66649a
+    border-bottom-width 0
+    transform translate(-50%, 0)
+
+.link:not(.unacked):not(:hover) .bubble
+  pointer-events none
+  opacity 0
+  transform translate(-50%, -5px)
 
 .linkItem:not(:first-child)
   margin-left 3px

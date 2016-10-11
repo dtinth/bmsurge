@@ -20,7 +20,7 @@ class Application extends Component {
       <Title nowPlaying={state.nowPlaying} key='Title' />
       <div className={styles.nowPlayingSection} key='NowPlayingSection'>
         <h2>Now Playing</h2>
-        <NowPlaying nowPlaying={state.nowPlaying} />
+        <NowPlaying nowPlaying={state.nowPlaying} options={state.options} store={store} />
         <Options options={state.options} store={store} />
       </div>
       <div key='PlayHistorySection'>
