@@ -9,14 +9,14 @@ const Title = ({ nowPlaying }) => (
       Nonstop BMS music station.
       {' '}
       <span className={styles.m3u}>
-        [<a href="http://cloud.spacet.me:8000/be-music-surf.m3u">.m3u</a>]
+        [<a href="be-music-surge.m3u">.m3u</a>]
       </span>
     </p>
     <p>
       <audio
         preload="none"
         controls
-        src="http://cloud.spacet.me:8000/be-music-surf"
+        src="https://be-music.spacet.me/radio/be-music-surge"
       >Does your browser support audio tag??</audio>
     </p>
   </div>

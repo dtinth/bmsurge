@@ -5,12 +5,12 @@ const webpack = require('webpack')
 function generateWebpackConfig (config, options) {
   const extractor = options.extractCSS ? new ExtractTextPlugin('style.css') : null
   const cssLoader = (() => {
-    const cssOptions = '?modules&localIdentName=[name]の[local]／[hash:base64:7]&importLoaders=2!postcss!stylus'
+    const cssOptions = '?modules&localIdentName=[name]の[local]／[hash:base64:7]&importLoaders=2!postcss-loader!stylus-loader'
     if (options.prerender) {
       return 'css-loader/locals' + cssOptions
     }
-    const cssNotExtractLoader = 'style'
-    const cssExtractLoader = 'css' + cssOptions
+    const cssNotExtractLoader = 'style-loader'
+    const cssExtractLoader = 'css-loader' + cssOptions
     return (extractor
       ? extractor.extract(cssNotExtractLoader, cssExtractLoader)
       : cssNotExtractLoader + '!' + cssExtractLoader

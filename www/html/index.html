@@ -42,6 +42,26 @@
     return t;
   }(document, "script", "twitter-wjs"));</script>
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.5.0/firebase-database.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyDUSQ9NYxkipb_s6Alze9lmFXSRxXKsXDY",
+      authDomain: "be-music-surge-frontend.firebaseapp.com",
+      databaseURL: "https://be-music-surge-frontend.firebaseio.com",
+      projectId: "be-music-surge-frontend",
+      storageBucket: "",
+      messagingSenderId: "284392105315",
+      appId: "1:284392105315:web:933567d122f91ecd0bdf56"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+
+
   <!-- script -->
   <script src="/bundle.js"></script>
   <!-- end script -->

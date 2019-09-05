@@ -9,19 +9,10 @@ const changeObserver = (f, previous) => observer((newValue, oldValue) => {
 }, previous)
 
 function startNowPlaying (store) {
-  setInterval(update, 10000)
-  update()
-
-  function update () {
-    var xh = new XMLHttpRequest()
-    xh.open('GET', 'http://cloud.spacet.me:8002/playing.json', true)
-    xh.onload = function () {
-      const data = JSON.parse(xh.responseText)
-      const time = Date.now()
-      store.dispatch(app => app.nowPlayingDataReceived(data, time))
-    }
-    xh.send()
-  }
+  firebase.database().ref('station').on('value', (snapshot) => {
+    const time = Date.now()
+    store.dispatch(app => app.nowPlayingDataReceived(snapshot.val(), time))
+  })
 }
 
 function startNotifications (store) {
