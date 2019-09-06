@@ -41,7 +41,6 @@ function startNotifications (store) {
   })
   store.subscribe(() => {
     const state = store.getState()
-    const song = store
     observeOption(state.options.notifications)
     observeSongTitle(state.nowPlaying.title)
   })
