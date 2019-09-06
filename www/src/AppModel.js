@@ -1,13 +1,5 @@
 import { createReducer } from 'redux-send'
 
-const songId = ({ title, artist }) => `${artist} - ${title}`
-
-const addHistory = (history, newSong, timestamp) => (
-  !history.length || songId(history[0]) !== songId(newSong)
-  ? [ { ...newSong, timestamp: timestamp }, ...history ]
-  : history
-)
-
 const AppModel = {
   getInitialState: () => ({
     nowPlaying: {
@@ -27,15 +19,15 @@ const AppModel = {
       'ack.bmssearch': false
     }
   }),
-  nowPlayingDataReceived: (data, timestamp) => state => {
-    const toSong = ({ set, genre, artist, title, event, md5, link, soundcloud }) => ({
-      set, genre, artist, title, event, md5, link, soundcloud
+  nowPlayingDataReceived: data => state => {
+    const toSong = ({ set, genre, artist, title, event, md5, link, soundcloud, playedAt }) => ({
+      set, genre, artist, title, event, md5, link, soundcloud, timestamp: playedAt
     })
     const song = toSong(data)
     return {
       ...state,
       nowPlaying: song,
-      history: addHistory(state.history, song, timestamp),
+      history: Object.values(data.history || {}).reverse().map(toSong),
       serverStatus: data.serverStatus
     }
   },

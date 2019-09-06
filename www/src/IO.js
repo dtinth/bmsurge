@@ -10,8 +10,7 @@ const changeObserver = (f, previous) => observer((newValue, oldValue) => {
 
 function startNowPlaying (store) {
   firebase.database().ref('station').on('value', (snapshot) => {
-    const time = Date.now()
-    store.dispatch(app => app.nowPlayingDataReceived(snapshot.val(), time))
+    store.dispatch(app => app.nowPlayingDataReceived(snapshot.val()))
   })
 }
 
